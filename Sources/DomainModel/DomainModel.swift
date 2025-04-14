@@ -129,18 +129,26 @@ public class Job {
 // Person
 //
 public class Person {
-    var firstName: String;
-    var lastName: String;
+    var firstName: String?;
+    var lastName: String?;
     var age: Int;
     private var _job: Job?;
     private var _spouse: Person?;
     
-    init(firstName: String, lastName: String, age: Int, _job: Job? = nil, _spouse: Person? = nil) {
+    init(firstName: String, lastName: String, age: Int) {
         self.firstName = firstName;
         self.lastName = lastName;
         self.age = age;
-        self._job = _job;
-        self._spouse = _spouse;
+    }
+    
+    init(firstName: String, age: Int) {
+        self.firstName = firstName;
+        self.age = age;
+    }
+    
+    init(lastName: String, age: Int) {
+        self.lastName = lastName;
+        self.age = age;
     }
     
     // job
@@ -174,7 +182,7 @@ public class Person {
     // toString
     func toString() -> String {
         // [Person: firstName: Ted lastName: Neward age: 45 job: Salary(1000) spouse: Charlotte]
-        return "[Person: firstName:\(self.firstName) lastName:\(self.lastName) age:\(self.age) job:\(String(describing: self.job?.type)) spouse:\(String(describing: self.spouse?.firstName))]";
+        return "[Person: firstName:\(self.firstName ?? "nil") lastName:\(self.lastName ?? "nil") age:\(self.age) job:\(String(describing: self.job?.type)) spouse:\(String(describing: self.spouse?.firstName))]";
     }
 }
 
