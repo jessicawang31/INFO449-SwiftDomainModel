@@ -120,7 +120,7 @@ public class Job {
             
         // hourly
         case .Hourly(let hourlyRate):
-            self.type = .Hourly(hourlyRate + (1.0 + byPercent))
+            self.type = .Hourly(hourlyRate * (1.0 + byPercent))
         };
     }
 }
