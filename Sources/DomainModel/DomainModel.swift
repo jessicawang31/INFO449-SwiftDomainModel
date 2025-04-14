@@ -86,13 +86,13 @@ public class Job {
     // calculateIncome
     func calculateIncome(_ hours: Int = 2000) -> Int {
         switch self.type {
-        // salary
-        case .Salary(let annualSalary):
-            return Int(annualSalary);
-            
-        // hourly
-        case .Hourly(let hourlyRate):
-            return Int(Double(hours) * hourlyRate);
+            // salary
+            case .Salary(let annualSalary):
+                return Int(annualSalary);
+                
+            // hourly
+            case .Hourly(let hourlyRate):
+                return Int(Double(hours) * hourlyRate);
         };
     }
     
@@ -101,26 +101,39 @@ public class Job {
     // byAmount
     func raise(byAmount: Double) {
         switch self.type {
-        // salary
-        case .Salary(let annualSalary):
-            self.type = .Salary(annualSalary + UInt(Int(byAmount)))
-            
-        // hourly
-        case .Hourly(let hourlyRate):
-            self.type = .Hourly(hourlyRate + byAmount)
+            // salary
+            case .Salary(let annualSalary):
+                self.type = .Salary(annualSalary + UInt(Int(byAmount)))
+                
+            // hourly
+            case .Hourly(let hourlyRate):
+                self.type = .Hourly(hourlyRate + byAmount)
         };
     }
     
     // byPercent
     func raise(byPercent: Double) {
         switch self.type {
-        // salary
-        case .Salary(let annualSalary):
-            self.type = .Salary(UInt(Double(annualSalary) * (1.0 + byPercent)))
-            
-        // hourly
-        case .Hourly(let hourlyRate):
-            self.type = .Hourly(hourlyRate * (1.0 + byPercent))
+            // salary
+            case .Salary(let annualSalary):
+                self.type = .Salary(UInt(Double(annualSalary) * (1.0 + byPercent)))
+                
+            // hourly
+            case .Hourly(let hourlyRate):
+                self.type = .Hourly(hourlyRate * (1.0 + byPercent))
+            };
+    }
+    
+    // extra credit: convert
+    func convert() {
+        switch type {
+            // salary
+            case .Salary:
+                break
+            // hourly
+            case .Hourly(let hourlyRate):
+                let annual = Int((hourlyRate * 2000).rounded(.up))
+                type = JobType.Salary(UInt(annual))
         };
     }
 }
