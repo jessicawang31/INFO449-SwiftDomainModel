@@ -59,10 +59,10 @@ public struct Money {
         return Money(amount: converted.amount + other.amount, currency: other.currency);
     }
     
-    // subtract
-//    func subtract(_ other: Money) -> Money {
-//        return Money(amount: self.amount - other.amount, currency: other.currency);
-//    }
+//     subtract
+    func subtract(_ other: Money) -> Money {
+        return Money(amount: self.amount - other.amount, currency: other.currency);
+    }
     
 }
 
@@ -70,9 +70,58 @@ public struct Money {
 // Job
 //
 public class Job {
+    var title: String;
+    var type: JobType;
+    
+    init(title: String, type: JobType) {
+        self.title = title;
+        self.type = type;
+    }
+    
     public enum JobType {
         case Hourly(Double)
         case Salary(UInt)
+    }
+    
+    // calculateIncome
+    func calculateIncome(_ hours: Int = 2000) -> Int {
+        switch self.type {
+        // salary
+        case .Salary(let annualSalary):
+            return Int(annualSalary);
+            
+        // hourly
+        case .Hourly(let hourlyRate):
+            return Int(Double(hours) * hourlyRate);
+        };
+    }
+    
+    // raise
+    // no _ b/c ineternal parameter
+    // byAmount
+    func raise(byAmount: Double) {
+        switch self.type {
+        // salary
+        case .Salary(let annualSalary):
+            self.type = .Salary(annualSalary + UInt(Int(byAmount)))
+            
+        // hourly
+        case .Hourly(let hourlyRate):
+            self.type = .Hourly(hourlyRate + byAmount)
+        };
+    }
+    
+    // byPercent
+    func raise(byPercent: Double) {
+        switch self.type {
+        // salary
+        case .Salary(let annualSalary):
+            self.type = .Salary(UInt(Double(annualSalary) * (1.0 + byPercent)))
+            
+        // hourly
+        case .Hourly(let hourlyRate):
+            self.type = .Hourly(hourlyRate + (1.0 + byPercent))
+        };
     }
 }
 
