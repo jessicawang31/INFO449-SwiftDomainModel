@@ -182,4 +182,32 @@ public class Person {
 // Family
 //
 public class Family {
+    var members: [Person];
+    
+    init(spouse1: Person, spouse2: Person) {
+        spouse1.spouse = spouse2;
+        spouse2.spouse = spouse1;
+        self.members = [spouse1, spouse2];
+    }
+    
+    // haveChild
+    func haveChild(_ child: Person) -> Bool {
+        if (members[0].age > 21 || members[1].age > 21) {
+            members.append(child);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    // householdIncome
+    func householdIncome() -> Int{
+        var income = 0;
+        for person in members {
+            if let job = person.job {
+                income += job.calculateIncome();
+            }
+        }
+        return income;
+    }
 }
