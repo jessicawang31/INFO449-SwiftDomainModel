@@ -129,6 +129,53 @@ public class Job {
 // Person
 //
 public class Person {
+    var firstName: String;
+    var lastName: String;
+    var age: Int;
+    private var _job: Job?;
+    private var _spouse: Person?;
+    
+    init(firstName: String, lastName: String, age: Int, _job: Job? = nil, _spouse: Person? = nil) {
+        self.firstName = firstName;
+        self.lastName = lastName;
+        self.age = age;
+        self._job = _job;
+        self._spouse = _spouse;
+    }
+    
+    // job
+    var job : Job? {
+        get {
+            return _job;
+        }
+        set {
+            if (age >= 16) {
+                _job = newValue;
+            } else {
+                _job = nil;
+            }
+        }
+    }
+    
+    // spouse
+    var spouse : Person? {
+        get {
+            return _spouse;
+        }
+        set {
+            if (age >= 18) {
+                _spouse = newValue;
+            } else {
+                _spouse = nil;
+            }
+        }
+    }
+    
+    // toString
+    func toString() -> String {
+        // [Person: firstName: Ted lastName: Neward age: 45 job: Salary(1000) spouse: Charlotte]
+        return "[Person: firstName:\(self.firstName) lastName:\(self.lastName) age:\(self.age) job:\(String(describing: self.job?.type)) spouse:\(String(describing: self.spouse?.firstName))]";
+    }
 }
 
 ////////////////////////////////////
